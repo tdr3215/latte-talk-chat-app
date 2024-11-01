@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
-
+import tailwindcss_forms from "@tailwindcss/forms"
+import daisyui from "daisyui"
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -7,13 +8,12 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
+    extend: {},
+
   },
-  plugins: [],
+  daisyui: {
+    themes: ["coffee"]
+  },
+  plugins: [daisyui, tailwindcss_forms({ strategy: "class" })],
 };
 export default config;
