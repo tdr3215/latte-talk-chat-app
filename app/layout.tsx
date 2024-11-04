@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ToasterContext from "./(site)/context/ToasterContext";
+import AuthContext from "./(site)/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Latte Talk - Realtime Chat App",
@@ -13,7 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="coffee">
-      <body>{children}</body>
+      <body>
+        <AuthContext>
+          <ToasterContext />
+
+          {children}
+        </AuthContext>
+      </body>
     </html>
   );
 }

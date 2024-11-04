@@ -12,7 +12,7 @@ const config: Config = {
 
   },
   daisyui: {
-    themes: ["coffee"]
+    themes: ["coffee", "retro"]
   },
   plugins: [daisyui, tailwindcss_forms({ strategy: "class" })],
 };

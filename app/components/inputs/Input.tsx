@@ -57,7 +57,7 @@ const Input: React.FC<InputProps> = ({
           sm:text-sm
           sm:leading-6`,
             errors[id] && "focus:ring-error",
-            disabled && "loading loading-spinner w-10 mx-auto"
+            disabled && "loading loading-spinner w-8 mx-auto"
           )}
           id={id}
           type={type}

@@ -37,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({
     focus-visible:outline-2
     focus-visible:outline-offset-2
     `,
-        disabled && "loading loading-spinner w-10 mx-auto",
+        disabled && "loading loading-spinner w-8 mx-auto",
         fullWidth && "w-full",
         secondary ? "text-secondary" : "text-base-300",
         danger && "btn btn-error",

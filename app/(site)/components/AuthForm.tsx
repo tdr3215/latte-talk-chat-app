@@ -1,19 +1,30 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
+import { signIn, useSession } from "next-auth/react";
 // CUSTOM COMPONENTS
 import Input from "@/app/components/inputs/Input";
 import Button from "@/app/components/Button";
 import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type AuthType = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
   const [authType, setAuthType] = useState<AuthType>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [session.status, router]);
 
   // TOGGLE LOGIN / REGISTER
   const toggleAuthType = useCallback(() => {
@@ -41,19 +52,45 @@ const AuthForm = () => {
     setIsLoading(true);
     if (authType === "REGISTER") {
       // Axios Register
-      axios.post("/api/register", data);
-
+      axios
+        .post("/api/register", data)
+        .then(() => signIn("credentials", data))
+        .catch(() => toast.error("Something went wrong"))
+        .finally(() => setIsLoading(false));
     }
 
     if (authType === "LOGIN") {
-      // NextAuth Signin
-    }
+      signIn("credentials", { ...data, redirect: false })
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error("Invalid credentials");
+          }
 
+          if (callback?.ok && !callback?.error) {
+            toast.success("Successfly logged in!");
+            router.push("/users");
+          }
+        })
+        .finally(() => setIsLoading(false));
+    }
   };
 
   const socialAction = (action: string) => {
     setIsLoading(true);
     // NextAuth Social Signin
+    signIn(action, {
+      redirect: false,
+    })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Invalid credentials");
+        }
+
+        if (callback?.ok && !callback?.error) {
+          toast.success(`Successfully logged into ${action}`);
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
 
   // AUTH FORM COMPONENT
