@@ -28,7 +28,8 @@ md:w-11
           fill
         />
       </div>
-      <span className="
+      <span
+        className="
       absolute
       block
       rounded-full
@@ -41,7 +42,8 @@ md:w-11
       w-2
       md:h-3
       md:w-3
-      "/>
+      "
+      />
     </div>
   );
 };
