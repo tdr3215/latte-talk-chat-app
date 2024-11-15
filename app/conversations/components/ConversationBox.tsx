@@ -65,7 +65,6 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 
     return "Started a conversation.";
   }, [lastMessage]);
-  console.log(otherUser);
   return (
     <div
       className={clsx(
@@ -75,16 +74,41 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         flex
         items-center
         space-x-3
-        hover:bg-neutral-100
         rounded-lg
+        hover:bg-base-300
         transition
         cursor-pointer
+        p-3
         `,
-        selected ? "bg-neutral-100" : "bg-white"
+        selected ? "bg-secondary" : "bg-base-100"
       )}
       onClick={handleClick}
     >
       <Avatar user={otherUser} />
+      <div className="min-w-0 flex-1">
+        <div className="focus:outline-none">
+          <div className="flex justify-between items-center mb-1">
+            <p className="text-base font-medium text-base-content">
+              {data.name || otherUser.name}
+            </p>
+            {lastMessage?.createdAt && (
+              <p className="text-xs text-success font-light">
+                {format(new Date(lastMessage.createdAt), "p")}
+              </p>
+            )}
+          </div>
+          <p
+            className={clsx(
+              `
+            truncate
+            text-sm`,
+              hasSeen ? "text-base-content" : " text-info font-medium"
+            )}
+          >
+            {lastMessageText}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
