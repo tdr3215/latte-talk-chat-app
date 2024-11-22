@@ -12,7 +12,7 @@ interface IParams {
 const ConversationDetails = async ({ params }: { params: IParams }) => {
   const { conversationId } = await params;
   const conversation = await getConversationById(conversationId);
-  const messages = await getMessages(conversationId);
+  const messages = (await getMessages(conversationId)) ?? [];
 
   if (!conversation) {
     return (
@@ -30,8 +30,8 @@ const ConversationDetails = async ({ params }: { params: IParams }) => {
     "
       >
         <Header conversation={conversation} />
-        <Body/>
-        <Form/>
+        <Body initialMessages={messages} />
+        <Form />
       </div>
     </div>
   );

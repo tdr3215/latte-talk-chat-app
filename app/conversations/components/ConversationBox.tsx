@@ -102,7 +102,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
               `
             truncate
             text-sm`,
-              hasSeen ? "text-base-content" : " text-info font-medium"
+              hasSeen ? "text-neutral-content" : " text-info font-medium"
             )}
           >
             {lastMessageText}

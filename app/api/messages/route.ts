@@ -67,7 +67,8 @@ export const POST = async (req: NextRequest) => {
             }
         })
 
-        return NextResponse.json(newMessage, {
+        // originally had newMessage but changed to see updated Conversation so I can see the "seen" list
+        return NextResponse.json(updatedConversation, {
             status: 200
         })
     } catch (error) {
