@@ -39,7 +39,9 @@ const Button: React.FC<ButtonProps> = ({
     `,
         disabled && "loading loading-spinner w-8 mx-auto",
         fullWidth && "w-full",
-        secondary ? "text-secondary" : "text-base-300",
+        secondary
+          ? "text-secondary btn bg-primary mx-2 hover:bg-primary hover:opacity-70 transition"
+          : "text-accent-content bg-base-300 hover:bg-base-300/75 hover:border-base-300/75 border-base-300",
         danger && "btn btn-error",
         !secondary && !danger && "btn btn-primary"
       )}
